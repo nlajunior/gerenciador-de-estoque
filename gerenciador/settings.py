@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +25,7 @@ SECRET_KEY = '4dd8yqtlz-yef5*w#u&*!1ee5_7pj21m%(*0t)g(z+h4knzj(+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -124,5 +124,4 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'stock.User'
 
 # Configure Django App for Heroku.
-import django_heroku
 django_heroku.settings(locals())
