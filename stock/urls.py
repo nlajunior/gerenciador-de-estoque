@@ -5,6 +5,9 @@ from .views.CategoryView import CategoryView
 from .views.OrderView import OrderView
 from .views.UserView import UserView
 from .views.ProviderView import ProviderView
+from django.contrib.auth.decorators import login_required
+from django.conf.urls.static import static
+from django.conf import settings
 
 home = HomeView()
 product = ProductView()
@@ -14,30 +17,37 @@ user = UserView()
 provider = ProviderView()
 
 urlpatterns = [
-    path('', home.index),
-    path('products', product.index),
-    path('product/new', product.form),
-    path('product/<int:id>', product.form),
-    path('product/<int:id>/delete', product.delete),
+    path('dashboard', login_required(home.index)),
 
-    path('categories', category.index),
-    path('category/new', category.form),
-    path('category/<int:id>', category.form),
-    path('category/<int:id>/delete', category.delete),
+    path('', user.login),
+    path('login', user.login),
+    path('logout', login_required(user.logout)),
 
-    path('orders', order.index),
-    path('order/new', order.form),
-    path('order/<int:id>', order.form),
-    path('order/<int:id>/delete', order.delete),
+    path('products', login_required(product.index)),
+    path('product/new', login_required(product.form)),
+    path('product/<int:id>', login_required(product.form)),
+    path('product/<int:id>/delete', login_required(product.delete)),
 
-    path('users', user.index),
-    path('user/new', user.form),
-    path('user/<int:id>', user.form),
-    path('user/<int:id>/delete', user.delete),
+    path('categories', login_required(category.index)),
+    path('category/new', login_required(category.form)),
+    path('category/<int:id>', login_required(category.form)),
+    path('category/<int:id>/delete', login_required(category.delete)),
+
+    path('orders', login_required(order.index)),
+    path('order/new', login_required(order.form)),
+    path('order/<int:id>', login_required(order.form)),
+    path('order/<int:id>/delete', login_required(order.delete)),
+
+    path('users', login_required(user.index)),
+    path('user/new', login_required(user.form)),
+    path('user/<int:id>', login_required(user.form)),
+    path('user/<int:id>/delete', login_required(user.delete)),
 
 
-    path('providers', provider.index),
-    path('provider/new', provider.form),
-    path('provider/<int:id>', provider.form),
-    path('provider/<int:id>/delete', provider.delete),
+    path('providers', login_required(provider.index)),
+    path('provider/new', login_required(provider.form)),
+    path('provider/<int:id>', login_required(provider.form)),
+    path('provider/<int:id>/delete', login_required(provider.delete)),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

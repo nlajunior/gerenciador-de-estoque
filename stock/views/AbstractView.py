@@ -14,15 +14,21 @@ class AbstractView():
             'results': results
         })
 
-    def form(self, request, model, formClass, link_anterior, link, pagina, anterior, id=None):
+    def form(self, request, model, formClass, link_anterior, link, pagina, anterior, id=None, requestFile=None):
         requestPost = request.POST or None
         if id is not None:
             instance = get_object_or_404(model, pk=id)
-            form = formClass(requestPost, instance=instance)
+            if requestFile:
+                form = formClass(requestPost, requestFile, instance=instance)
+            else:
+                form = formClass(requestPost, instance=instance)
             text = ['Editado', 'Editar']
             new = False
         else:
-            form = formClass(requestPost)
+            if requestFile:
+                form = formClass(requestPost, requestFile)
+            else:
+                form = formClass(requestPost)
             text = ['Salvo', 'Salvar']
             new = True
 

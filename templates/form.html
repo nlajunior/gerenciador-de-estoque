@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
+{% block title %}{{ pagina }}{% endblock %}
 {% block bread %}
      <a href="/{{link_anterior}}"> > {{ anterior }}</a> > {{ pagina }}
 {% endblock %}
 {% block content %}
     {% if messages %}
         {% for message in messages %}
-            <div class="alert bg-rgba-{{message.tags}} alert-dismissible mb-2" role="alert">
+            {% if message.tags == 'success' %}
+              <div class="alert bg-rgba-success alert-dismissible mb-2" role="alert">
+              {% else %}
+              <div class="alert bg-rgba-danger alert-dismissible mb-2" role="alert">
+            {% endif %}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
@@ -22,11 +27,10 @@
             </div>
         {% endfor %}
     {% endif %}
-
     {% if id is None %}
-    <form method="POST" action="/{{page_form}}/new" class="form-body p-2 row">
+    <form method="POST" action="/{{page_form}}/new" class="form-body p-2 row" enctype="multipart/form-data">
     {% else %}
-    <form method="POST" action="/{{page_form}}/{{ id }}" class="form-body p-2 row">
+    <form method="POST" action="/{{page_form}}/{{ id }}" class="form-body p-2 row" enctype="multipart/form-data">
     {% endif %}
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
             {% csrf_token %}

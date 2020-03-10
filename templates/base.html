@@ -7,7 +7,7 @@
     <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Swiper - Frest - Bootstrap HTML admin template</title>
+    <title>Gerenciador de Estoque - {% block title %}{% endblock %}</title>
     <link rel="apple-touch-icon" href="https://www.pixinvent.com/demo/frest-clean-bootstrap-admin-dashboard-template/app-assets/images/ico/apple-icon-120.png">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://www.pixinvent.com/demo/frest-clean-bootstrap-admin-dashboard-template/app-assets/vendors/css/vendors.min.css">
@@ -105,6 +105,7 @@
         }
       </style>
   </head>
+  {% if request.user.is_authenticated %}
   <body class="vertical-layout vertical-menu-modern 2-columns navbar-sticky footer-static pace-done menu-collapsed" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
     <div class="header-navbar-shadow"></div>
     <nav class="header-navbar main-header-navbar navbar-expand-lg navbar navbar-with-menu fixed-top ">
@@ -134,11 +135,11 @@
                           <span class="user-status text-muted">{{ request.user.get_role }}</span>
                       </div>
                       <span>
-                          <img class="round" src="https://www.pixinvent.com/demo/frest-clean-bootstrap-admin-dashboard-template/app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40">
+                          <img class="round" src="/media/{{ request.user.imagem }}" alt="avatar" height="40" width="40">
                       </span>
                   </a>
                 <div class="dropdown-menu dropdown-menu-right pb-0">
-                    <a class="dropdown-item" href="auth-login.html"><i class="bx bx-power-off mr-50"></i> Logout</a>
+                    <a class="dropdown-item" href="/logout"><i class="bx bx-power-off mr-50"></i> Logout</a>
                 </div>
               </li>
             </ul>
@@ -188,6 +189,13 @@
     <!-- END: Content-->
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
+    {% else %}
+    <body class="vertical-layout vertical-menu-modern 1-column  navbar-sticky footer-static bg-full-screen-image  blank-page blank-page  pace-done">
+     <div>
+       {% block login %}{% endblock  %}
+     </div>
+    {% endif %}
+
 
     <script src="https://www.pixinvent.com/demo/frest-clean-bootstrap-admin-dashboard-template/app-assets/vendors/js/vendors.min.js"></script>
     <script src="https://www.pixinvent.com/demo/frest-clean-bootstrap-admin-dashboard-template/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.min.js"></script>

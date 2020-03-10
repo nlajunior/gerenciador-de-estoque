@@ -3,6 +3,7 @@ from ..models import User, Order
 from django.shortcuts import render
 
 class HomeView():
+
     def __init__(self):
         self.abstractOrm = AbstractOrm()
         self.user = User()
