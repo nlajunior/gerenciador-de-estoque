@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block bread %} > {{ pagina }}{% endblock %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert bg-rgba-{{message.tags}} alert-dismissible mb-2" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+              <div class="d-flex align-items-center">
+                {% if message.tags == 'success' %}
+                  <i class="fa fa-check"></i>
+                  {% else %}
+                  <i class="fa fa-times-circle"></i>
+                {% endif %}
+                <span>
+                  {{message}}
+                </span>
+              </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+  <div id="tag-totals" class="badge badge-light-primary mr-1 mb-1">{{ results | length }} fornecedores(s)</div>
+  <a id="newButton" href="provider/new" class="btn btn-outline-primary mr-1 mb-1"><i class="fa fa-plus"></i><span class="align-middle ml-25">Novo Fornecedor</span></a>
+
+  <table class="table">
+      <thead>
+        <tr>
+            {% for header in headers %}
+                <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        {% for value in results %}
+            <tr>
+                <td>{{ value.company_name }}</td>
+                <td>{{ value.email }}</td>
+                <td>{{ value.cnpj }}</td>
+                    <td>
+                        {% if value.status %}
+                            <div class="badge badge-pill badge-light-success">Ativo</div>
+                        {% else %}
+                            <div class="badge badge-pill badge-light-danger">Inativo</div>
+                        {% endif %}
+                    </td>
+                <td>{{ value.date }}</td>
+                <td>
+                    <a href="/provider/{{ value.id }}"><i class="fa fa-edit badge-circle badge-circle-light-primary font-medium-1"></i></a>
+                    <a href="/provider/{{ value.id }}/delete"><i class="fa fa-trash badge-circle badge-circle-light-danger font-medium-1"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tr>
+      </tbody>
+    </table>
+{% endblock %}
