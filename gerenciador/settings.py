@@ -122,3 +122,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'stock.User'
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
