@@ -10,10 +10,10 @@ class CategoryView():
         self.formClass = GenericForm(Category, fields='__all__')
 
     def index(self, request):
-        return self.view.index(request=request, model=Category, pagina='Categoria', headers=['Nome', 'Ações'], template_html='list-category.html')
+        return self.view.index(request=request, model=Category, pagina='Categoria', headers=['Nome', 'Ações'], template_html='list-category.html', permissions_roles=[1, 2])
 
     def form(self, request, id=None):
         return self.view.form(request, Category, self.formClass.getForm(), 'categories', 'category', 'Nova categoria',
-                                  'Categorias', id)
+                                  'Categorias', id, permissions_roles=[1, 2])
     def delete(self, request, id):
-        return self.view.delete(request, Category, 'categories', id)
+        return self.view.delete(request, Category, 'categories', id, permissions_roles=[1, 2])

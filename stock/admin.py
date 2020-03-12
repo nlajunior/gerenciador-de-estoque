@@ -28,7 +28,6 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
-
 admin.site.register(Provider)
 admin.site.register(Category)
 admin.site.register(Product)

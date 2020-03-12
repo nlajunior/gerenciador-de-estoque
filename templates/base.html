@@ -40,6 +40,9 @@
             width: 30px;
             float: left;
         }
+          .vertical-overlay-menu .main-menu .navigation>li>a>i, body.vertical-layout.vertical-menu-modern .main-menu .navigation>li>a>i {
+            text-align: center !important;
+        }
           textarea{
                 display: block;
                 width: 100%;
@@ -103,7 +106,12 @@
             text-align: center;
             line-height: 35px;
         }
+          .navbar-container .search-input .search-input-icon{
+              display: initial;;
+                left: 2.8rem;
+          }
       </style>
+        {% block styles %}{% endblock %}
   </head>
   {% if request.user.is_authenticated %}
   <body class="vertical-layout vertical-menu-modern 2-columns navbar-sticky footer-static pace-done menu-collapsed" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
@@ -114,18 +122,18 @@
           <div class="navbar-collapse" id="navbar-mobile">
             <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
               <ul class="nav navbar-nav">
-                <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon bx bx-menu"></i></a></li>
+                <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="fa fa-bars"></i></a></li>
               </ul>
-              <ul class="nav navbar-nav">
-                  <li>
-                      <div class="search-input">
-                          <div class="search-input-icon"><i class="bx bx-search primary"></i></div>
-                          <input class="input" type="text" placeholder="Buscar">
-                          <div class="search-input-close"><i class="bx bx-x"></i></div>
-                          <ul class="search-list show"></ul>
-                      </div>
-                  </li>
-              </ul>
+{#              <ul class="nav navbar-nav">#}
+{#                  <li>#}
+{#                      <div class="search-input">#}
+{#                          <div class="search-input-icon"><i class="fa fa-search primary"></i></div>#}
+{#                          <input class="input" type="text" placeholder="Buscar">#}
+{#                          <div class="search-input-close"><i class="bx bx-x"></i></div>#}
+{#                          <ul class="search-list show"></ul>#}
+{#                      </div>#}
+{#                  </li>#}
+{#              </ul>#}
             </div>
             <ul class="nav navbar-nav float-right">
               <li class="dropdown dropdown-user nav-item">
@@ -159,12 +167,12 @@
       <div class="shadow-bottom"></div>
       <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
-          <li class=" nav-item"><a href="/"><i></i><span class="menu-title" data-i18n="Email">Dashboard</span></a></li>
-          <li class=" nav-item"><a href="/categories"><i></i><span class="menu-title">Categorias</span></a></li>
-          <li class=" nav-item"><a href="/products"><i></i><span class="menu-title">Produtos</span></a></li>
-          <li class=" nav-item"><a href="/orders"><i></i><span class="menu-title">Pedidos</span></a></li>
-          <li class=" nav-item"><a href="/users"><i></i><span class="menu-title">Usuários</span></a></li>
-          <li class=" nav-item"><a href="/providers"><i></i><span class="menu-title">Fornecedores</span></a></li>
+          <li class=" nav-item"><a href="/"><i class="fa fa-dashboard"></i><span class="menu-title" data-i18n="Email">Dashboard</span></a></li>
+          <li class=" nav-item"><a href="/categories"><i class="fa fa-align-left"></i><span class="menu-title">Categorias</span></a></li>
+          <li class=" nav-item"><a href="/products"><i class="fa fa-product-hunt"></i><span class="menu-title">Produtos</span></a></li>
+          <li class=" nav-item"><a href="/orders"><i class="fa fa-dollar"></i><span class="menu-title">Pedidos</span></a></li>
+          <li class=" nav-item"><a href="/users"><i class="fa fa-users"></i><span class="menu-title">Usuários</span></a></li>
+          <li class=" nav-item"><a href="/providers"><i class="fa fa-truck"></i><span class="menu-title">Fornecedores</span></a></li>
         </ul>
       </div>
     </div>
@@ -210,5 +218,7 @@
     <script src="https://www.pixinvent.com/demo/frest-clean-bootstrap-admin-dashboard-template/app-assets/js/scripts/customizer.min.js"></script>
     <script src="https://www.pixinvent.com/demo/frest-clean-bootstrap-admin-dashboard-template/app-assets/js/scripts/extensions/swiper.min.js"></script>
     <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    {% block scripts %}{% endblock %}
   </body>
 </html>

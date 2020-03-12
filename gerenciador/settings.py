@@ -81,7 +81,26 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'sudo apt-get install python3-dev libmysqlclient-dev',
+#         'NAME': 'pythondeaaz04',
+#         'USER': 'pythondeaaz04',
+#         'PASSWORD': 'novobanco123',
+#         'HOST': 'mysql.pythondeaaz.com.br',
+#         'PORT': '5432',
+#     }
+# }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'pythondeaaz1',
+#         'USER': 'pythondeaaz1',
+#         'PASSWORD': 'novobanco123',
+#         'HOST': 'pgsql.pythondeaaz.com.br',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

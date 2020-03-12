@@ -12,10 +12,10 @@ class ProviderView():
 
     def index(self, request):
         return self.view.index(request=request, model=Provider, pagina='Fornecedor', headers=['Empresa', 'E-mail', 'CNPJ', 'Status', 'Data de Criação', 'Ações'],
-                               template_html='list-provider.html')
+                               template_html='list-provider.html', permissions_roles=[1, 2])
 
     def form(self, request, id=None):
-        return self.view.form(request, Provider, self.formClass.getForm(), 'providers', 'provider', 'Novo fornecedor', 'Fornecedores', id)
+        return self.view.form(request, Provider, self.formClass.getForm(), 'providers', 'provider', 'Novo fornecedor', 'Fornecedores', id, permissions_roles=[1, 2])
 
     def delete(self, request, id):
-        return self.view.delete(request, Provider, 'providers', id)
+        return self.view.delete(request, Provider, 'providers', id, permissions_roles=[1, 2])
