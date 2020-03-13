@@ -6,7 +6,6 @@ import locale
 from django.db.models import Count
 from datetime import datetime, timedelta
 
-
 class Order(models.Model):
     date = models.DateField(auto_now_add=True)
     total_value = models.FloatField(default=0.0)
@@ -27,6 +26,7 @@ class Order(models.Model):
             try:
                 with transaction.atomic():
                     self.product.quantity -= self.quantity
+                    self.total_value = self.product.value * self.quantity
                     self.product.save()
                     super().save(*args, **kwargs)
                 messages.add_message(kwargs['request'], messages.SUCCESS, 'Pedido salvo com sucesso.')
