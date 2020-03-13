@@ -3,10 +3,10 @@ from . import Category, Provider
 
 class Product(models.Model):
     name = models.CharField(null=False, max_length=30)
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     quantity = models.IntegerField(default=0)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    provider = models.ManyToManyField(Provider, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    provider = models.ManyToManyField(Provider, null=True, blank=True)
     value = models.FloatField(default=0.0)
     status = models.BooleanField(default=1)
     date = models.DateTimeField(auto_now_add=True)
