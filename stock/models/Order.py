@@ -1,5 +1,6 @@
 from django.db import models
-from django.utils import timezone
+from django.db import transaction
+from django.contrib import messages
 from . import User, Product
 import locale
 from django.db.models import Count
@@ -20,6 +21,19 @@ class Order(models.Model):
 
     def __str__(self):
         return '{} {}'.format(self.product, self.product)
+
+    def save(self, *args, **kwargs):
+        if self.product.quantity >= self.quantity:
+            try:
+                with transaction.atomic():
+                    self.product.quantity -= self.quantity
+                    self.product.save()
+                    super().save(*args, **kwargs)
+                messages.add_message(kwargs['request'], messages.SUCCESS, 'Pedido salvo com sucesso.')
+            except:
+                messages.add_message(kwargs['request'], messages.ERROR, 'Ocorreu um erro ao salvar o pedido.')
+        else:
+            messages.add_message(kwargs['request'], messages.ERROR, 'A quantidade excede o total de produtos.')
 
     def format_money(self):
         valor = self.total_value
