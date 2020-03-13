@@ -8,7 +8,7 @@ class AbstractView():
         self.abstractOrm = AbstractOrm()
 
     def index(self, request, model, pagina, headers, template_html, permissions_roles=[]):
-        if request.user.roles in permissions_roles:
+        if request.user.roles in permissions_roles or request.user.is_admin:
             results = self.abstractOrm.list(model)
 
             paginator = Paginator(results, 12)
@@ -25,7 +25,7 @@ class AbstractView():
 
 
     def form(self, request, model, formClass, link_anterior, link, pagina, anterior, id=None, requestFile=None, permissions_roles=[]):
-        if request.user.roles in permissions_roles:
+        if request.user.roles in permissions_roles or request.user.is_admin:
             requestPost = request.POST or None
             if id is not None:
                 instance = get_object_or_404(model, pk=id)
@@ -74,7 +74,7 @@ class AbstractView():
             return redirect('/')
 
     def delete(self, request, model, link, id, permissions_roles=[]):
-        if request.user.roles in permissions_roles:
+        if request.user.roles in permissions_roles or request.user.is_admin:
             instance = None
             if id is not None:
                 instance = get_object_or_404(model, pk=id)
