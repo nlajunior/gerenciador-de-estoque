@@ -1,5 +1,5 @@
 from django.db import models
-from . import Category, Provider
+from . import Category, Provider, AbstractModel
 
 class Product(models.Model):
     name = models.CharField(null=False, max_length=30)
@@ -13,3 +13,7 @@ class Product(models.Model):
 
     def __str__(self):
         return '{}'.format(self.name)
+
+    def format_money(self):
+        abs_model = AbstractModel()
+        return abs_model.format_money(self.value)

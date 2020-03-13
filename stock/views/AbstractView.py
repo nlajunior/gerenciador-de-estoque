@@ -47,6 +47,10 @@ class AbstractView():
                 try:
                     if form.is_valid():
                         instance = form.save()
+                        if 'password' in request.POST:
+                            if len(request.POST['password']) > 0:
+                                instance.set_password(request.POST['password'])
+
                         instance.save()
                         result = {
                             'message': '%s com sucesso' % text[0],

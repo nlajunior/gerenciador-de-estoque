@@ -7,7 +7,7 @@ class OrderView():
     def __init__(self):
         self.abstractOrm = AbstractOrm()
         self.view = AbstractView()
-        self.formClass = GenericForm(Order, fields='__all__', read_only=('total_value', ))
+        self.formClass = GenericForm(Order, exclude=('total_value',))
 
     def index(self, request):
         return self.view.index(request=request, model=Order, pagina='Order', headers=['Pedido', 'Valor Total', 'Quantidade', 'Status', 'Data de Criação', 'Quantidade', 'Ações'],

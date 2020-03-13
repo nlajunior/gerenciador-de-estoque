@@ -1,8 +1,6 @@
 from django.db import models
 from django.db import transaction
-from django.contrib import messages
-from . import User, Product
-import locale
+from . import User, Product, AbstractModel
 from django.db.models import Count
 from datetime import datetime, timedelta
 
@@ -22,24 +20,40 @@ class Order(models.Model):
         return '{} {}'.format(self.product, self.product)
 
     def save(self, *args, **kwargs):
-        if self.product.quantity >= self.quantity:
+        verify_quantity = False
+        alter_quantity = True
+        if self.id is not None:
+            current_instance = Order.objects.filter(id=self.id).first()
+            verify_quantity = self.quantity == current_instance.quantity
+            alter_quantity = not self.status == current_instance.status
+        else:
+            if self.status == 3:
+                alter_quantity = False
+
+        if not verify_quantity:
+            verify_quantity = self.product.quantity >= self.quantity
+
+        if verify_quantity:
             try:
                 with transaction.atomic():
-                    self.product.quantity -= self.quantity
                     self.total_value = self.product.value * self.quantity
+                    if alter_quantity:
+                        if self.product.status == 1:
+                            self.product.quantity -= self.quantity
+
+                        if self.product.status == 3:
+                            self.product.quantity += self.quantity
+
                     self.product.save()
                     super().save(*args, **kwargs)
-                messages.add_message(kwargs['request'], messages.SUCCESS, 'Pedido salvo com sucesso.')
             except:
-                messages.add_message(kwargs['request'], messages.ERROR, 'Ocorreu um erro ao salvar o pedido.')
+                raise Exception('Ocorreu um erro ao salvar o pedido')
         else:
-            messages.add_message(kwargs['request'], messages.ERROR, 'A quantidade excede o total de produtos.')
+            raise Exception('A quantidade excede o total de produtos.')
 
     def format_money(self):
-        valor = self.total_value
-        locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-        valor = locale.currency(valor, grouping=True, symbol=None)
-        return 'R$%s' % valor
+        abs_model = AbstractModel()
+        return abs_model.format_money(self.total_value)
 
     def get_order(self, status):
         total = [0, 0, 0, 0, 0, 0, 0]

@@ -9,7 +9,7 @@ from django.contrib import messages
 class UserView():
     def __init__(self):
         self.view = AbstractView()
-        self.formClass = GenericForm(User, exclude=('password',))
+        self.formClass = GenericForm(User, fields='__all__', passd=True)
 
     def index(self, request):
         return self.view.index(request=request, model=User, pagina='User', headers=['email', 'Ações'], template_html='list-user.html', permissions_roles=[1])
