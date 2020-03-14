@@ -12,13 +12,13 @@ class UserView():
         self.formClass = GenericForm(User, fields='__all__', passd=True)
 
     def index(self, request):
-        return self.view.index(request=request, model=User, pagina='User', headers=['email', 'Ações'], template_html='list-user.html', permissions_roles=[1])
+        return self.view.index(request=request, model=User, pagina='User', headers=['email', 'Ações'], template_html='list-user.html', permissions_roles=[1, 2])
 
     def form(self, request, id=None):
-        return self.view.form(request, User, self.formClass.getForm(), 'users', 'user', 'Novo usuário', 'Usuário', id, request.FILES, permissions_roles=[1])
+        return self.view.form(request, User, self.formClass.getForm(), 'users', 'user', 'Novo usuário', 'Usuário', id, request.FILES, permissions_roles=[1, 2])
 
     def delete(self, request, id):
-        return self.view.delete(request, User, 'users', id, permissions_roles=[1])
+        return self.view.delete(request, User, 'users', id, permissions_roles=[1, 2])
 
     def login(self, request):
         if request.method == 'POST':
@@ -64,7 +64,6 @@ class UserView():
             }
 
             return render(request, 'login.html', context)
-
 
     def logout(self, request):
         try:

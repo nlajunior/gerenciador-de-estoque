@@ -14,7 +14,7 @@ class GenericForm(forms.ModelForm):
             if self.read_only is not None:
                 read_only = self.read_only
             if self.passd is not None:
-                password = forms.CharField(max_length=20, min_length=3, required=False, widget=forms.PasswordInput())
+                password = forms.CharField(max_length=20, min_length=3, required=True, widget=forms.PasswordInput())
 
             class Meta:
                 model = self.model

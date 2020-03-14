@@ -52,7 +52,7 @@ class User(AbstractBaseUser):
         unique=True,
     )
     registration = models.IntegerField(null=True, blank=True)
-    roles = models.IntegerField(choices=ROLES, default=3)
+    roles = models.IntegerField(choices=ROLES, default=2)
     imagem = models.FileField(upload_to="fotos", blank=True)
     date = models.DateTimeField(auto_now_add=True)
 

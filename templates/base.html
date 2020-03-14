@@ -124,16 +124,6 @@
               <ul class="nav navbar-nav">
                 <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="fa fa-bars"></i></a></li>
               </ul>
-{#              <ul class="nav navbar-nav">#}
-{#                  <li>#}
-{#                      <div class="search-input">#}
-{#                          <div class="search-input-icon"><i class="fa fa-search primary"></i></div>#}
-{#                          <input class="input" type="text" placeholder="Buscar">#}
-{#                          <div class="search-input-close"><i class="bx bx-x"></i></div>#}
-{#                          <ul class="search-list show"></ul>#}
-{#                      </div>#}
-{#                  </li>#}
-{#              </ul>#}
             </div>
             <ul class="nav navbar-nav float-right">
               <li class="dropdown dropdown-user nav-item">
@@ -168,11 +158,13 @@
       <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
           <li class=" nav-item"><a href="/"><i class="fa fa-dashboard"></i><span class="menu-title" data-i18n="Email">Dashboard</span></a></li>
+          {% if request.user.roles == 1 or request.user.roles == 2 %}
           <li class=" nav-item"><a href="/categories"><i class="fa fa-align-left"></i><span class="menu-title">Categorias</span></a></li>
           <li class=" nav-item"><a href="/products"><i class="fa fa-product-hunt"></i><span class="menu-title">Produtos</span></a></li>
-          <li class=" nav-item"><a href="/orders"><i class="fa fa-dollar"></i><span class="menu-title">Pedidos</span></a></li>
           <li class=" nav-item"><a href="/users"><i class="fa fa-users"></i><span class="menu-title">Usuários</span></a></li>
           <li class=" nav-item"><a href="/providers"><i class="fa fa-truck"></i><span class="menu-title">Fornecedores</span></a></li>
+          {% endif %}
+          <li class=" nav-item"><a href="/orders"><i class="fa fa-dollar"></i><span class="menu-title">Pedidos</span></a></li>
         </ul>
       </div>
     </div>
